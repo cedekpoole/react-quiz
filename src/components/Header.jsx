@@ -13,7 +13,9 @@ function Header({ status }) {
         src={Logo}
         alt="React Logo"
         width="100"
-        className={`${status !== "active" && "animate-spin-slow"}`}
+        className={`${
+          status === "active" ? "animate-pulse" : "animate-spin-slow"
+        }`}
       />
     </header>
   );
