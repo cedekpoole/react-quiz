@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from "react";
 import Header from "./components/Header";
 import Loader from "./components/Loader";
+import ErrorMsg from "./components/ErrorMsg";
 
 const initialState = {
   questions: [],
@@ -41,7 +42,7 @@ function App() {
         <main className="container mx-auto p-10">
           {status === "loading" && <Loader />}
           {status === "error" && (
-            <div className="text-red-500 ">Error fetching data</div>
+            <ErrorMsg message="Failed to fetch data... :(" />
           )}
           {status === "ready" && (
             <div className="text-green-500">
