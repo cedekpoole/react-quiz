@@ -18,7 +18,7 @@ const reducer = (state, action) => {
 };
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     async function fetchData() {
@@ -28,7 +28,7 @@ function App() {
         dispatch({ type: "dataReceived", payload: data });
       } catch (error) {
         console.error(error);
-        dispatch({ type: "dataFailed", payload: error.message });
+        dispatch({ type: "dataFailed" });
       }
     }
     fetchData();
@@ -39,8 +39,7 @@ function App() {
         <Header />
         <main className="container mx-auto p-10">
           <p className="text-3xl">
-            Question 1/15{" "}
-            {state.status === "ready" && state.questions[0].question}
+            Question 1/15 {status === "ready" && questions[0].question}
           </p>
         </main>
       </div>
