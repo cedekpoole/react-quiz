@@ -23,6 +23,8 @@ const reducer = (state, action) => {
 function App() {
   const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
 
+  const numQuestions = questions.length;
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -38,14 +40,14 @@ function App() {
   }, []);
   return (
     <>
-      <div className="min-h-screen bg-[#23272f] text-gray-100 pt-8">
+      <div className="min-h-screen bg-[#23272f] text-gray-100 pt-8 font-barlow">
         <Header />
         <main className="container mx-auto px-4">
           {status === "loading" && <Loader />}
           {status === "error" && (
             <ErrorMsg message="Failed to fetch data... :(" />
           )}
-          {status === "ready" && <StartScreen />}
+          {status === "ready" && <StartScreen numQuestions={numQuestions} />}
         </main>
       </div>
     </>
