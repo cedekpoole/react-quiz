@@ -1,9 +1,4 @@
 import Logo from "../assets/logos_react.svg";
-import PropTypes from "prop-types";
-
-Header.propTypes = {
-  status: PropTypes.string.isRequired,
-};
 
 function Header() {
   return (
