@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react";
 import Header from "./components/Header";
+import Loader from "./components/Loader";
 
 const initialState = {
   questions: [],
@@ -38,9 +39,15 @@ function App() {
       <div className="min-h-screen bg-[#23272f] text-gray-100 pt-8">
         <Header />
         <main className="container mx-auto p-10">
-          <p className="text-3xl">
-            Question 1/15 {status === "ready" && questions[0].question}
-          </p>
+          {status === "loading" && <Loader />}
+          {status === "error" && (
+            <div className="text-red-500 ">Error fetching data</div>
+          )}
+          {status === "ready" && (
+            <div className="text-green-500">
+              Data fetched successfully: {questions[0].question}
+            </div>
+          )}
         </main>
       </div>
     </>
