@@ -74,7 +74,7 @@ function App() {
   return (
     <>
       <div className="min-h-screen bg-[#23272f] text-gray-100 pt-8 font-barlow">
-        <Header status={status} />
+        <Header />
         <main className="container mx-auto px-4">
           {status === "loading" && <Loader />}
           {status === "error" && (
