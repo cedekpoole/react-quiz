@@ -14,6 +14,7 @@ const initialState = {
   index: 0,
   answer: null,
   points: 0,
+  highscore: 0,
 };
 
 const reducer = (state, action) => {
@@ -25,7 +26,12 @@ const reducer = (state, action) => {
     case "startQuiz":
       return { ...state, status: "active" };
     case "finishQuiz":
-      return { ...state, status: "finished" };
+      return {
+        ...state,
+        status: "finished",
+        highscore:
+          state.points > state.highscore ? state.points : state.highscore,
+      };
     case "newAnswer": {
       const question = state.questions.at(state.index);
 
@@ -49,6 +55,7 @@ const reducer = (state, action) => {
         ...initialState,
         questions: state.questions,
         status: "ready",
+        highscore: state.highscore,
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -56,10 +63,8 @@ const reducer = (state, action) => {
 };
 
 function App() {
-  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ questions, status, index, answer, points, highscore }, dispatch] =
+    useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
   const pointsSum = questions.reduce(
@@ -118,6 +123,7 @@ function App() {
               points={points}
               pointsSum={pointsSum}
               dispatch={dispatch}
+              highscore={highscore}
             />
           )}
         </main>

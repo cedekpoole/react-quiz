@@ -4,9 +4,10 @@ Finished.propTypes = {
   points: PropTypes.number.isRequired,
   pointsSum: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
+  highscore: PropTypes.number.isRequired,
 };
 
-function Finished({ points, pointsSum, dispatch }) {
+function Finished({ points, pointsSum, dispatch, highscore }) {
   const percentage = Math.ceil((points / pointsSum) * 100);
 
   return (
@@ -15,10 +16,13 @@ function Finished({ points, pointsSum, dispatch }) {
         <h1 className="text-3xl font-semibold mb-4 font-albertsans ">
           Quiz Finished!
         </h1>
-        <p className="text-lg mb-6">
+        <p className="text-lg">
           You scored <span className="text-[#59c5db] font-bold">{points}</span>{" "}
           out of <span className="text-[#59c5db] font-bold">{pointsSum}</span>{" "}
           points ({percentage}%).
+        </p>
+        <p className="text-md mb-6">
+          Highscore: {highscore}/{pointsSum}
         </p>
 
         {/* Button (optional for retry) */}
