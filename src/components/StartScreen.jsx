@@ -6,7 +6,7 @@ StartScreen.propTypes = {
 
 function StartScreen({ numQuestions }) {
   return (
-    <div className="flex flex-col justify-center items-center mt-10 p-10 gap-2">
+    <div className="flex flex-col justify-center items-center mt-10 p-10 gap-2 text-center">
       <h2 className="text-3xl font-bold mb-1 font-albertsans">
         Welcome to the React Quiz!
       </h2>
