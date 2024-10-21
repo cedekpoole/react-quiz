@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Loader from "./components/Loader";
 import ErrorMsg from "./components/ErrorMsg";
 import StartScreen from "./components/StartScreen";
+import Question from "./components/Question";
 
 const initialState = {
   questions: [],
@@ -15,6 +16,8 @@ const reducer = (state, action) => {
       return { ...state, questions: action.payload, status: "ready" };
     case "dataFailed":
       return { ...state, status: "error" };
+    case "startQuiz":
+      return { ...state, status: "active" };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -41,13 +44,16 @@ function App() {
   return (
     <>
       <div className="min-h-screen bg-[#23272f] text-gray-100 pt-8 font-barlow">
-        <Header />
+        <Header status={status} />
         <main className="container mx-auto px-4">
           {status === "loading" && <Loader />}
           {status === "error" && (
             <ErrorMsg message="Failed to fetch data... :(" />
           )}
-          {status === "ready" && <StartScreen numQuestions={numQuestions} />}
+          {status === "ready" && (
+            <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
+          )}
+          {status === "active" && <Question />}
         </main>
       </div>
     </>
