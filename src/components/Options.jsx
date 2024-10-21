@@ -10,7 +10,9 @@ function Options({ options }) {
       {options.map((option, index) => (
         <button
           key={index}
-          className="block text-lg w-full p-2 my-2 bg-[#323844] hover:bg-[#4E5460] text-white rounded-lg"
+          className="block text-xl w-full p-2 my-2 bg-[#323844] text-white rounded-lg
+                   transform transition duration-300 ease-in-out
+                   hover:bg-[#4E5460] hover:translate-x-2 hover:shadow-lg border-2 border-transparent hover:border-[#59c5db]"
         >
           {option}
         </button>
