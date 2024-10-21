@@ -2,6 +2,7 @@ import { useEffect, useReducer } from "react";
 import Header from "./components/Header";
 import Loader from "./components/Loader";
 import ErrorMsg from "./components/ErrorMsg";
+import StartScreen from "./components/StartScreen";
 
 const initialState = {
   questions: [],
@@ -39,16 +40,12 @@ function App() {
     <>
       <div className="min-h-screen bg-[#23272f] text-gray-100 pt-8">
         <Header />
-        <main className="container mx-auto p-10">
+        <main className="container mx-auto px-4">
           {status === "loading" && <Loader />}
           {status === "error" && (
             <ErrorMsg message="Failed to fetch data... :(" />
           )}
-          {status === "ready" && (
-            <div className="text-green-500">
-              Data fetched successfully: {questions[0].question}
-            </div>
-          )}
+          {status === "ready" && <StartScreen />}
         </main>
       </div>
     </>
