@@ -44,6 +44,12 @@ const reducer = (state, action) => {
         index: state.index + 1,
         answer: null,
       };
+    case "retryQuiz":
+      return {
+        ...initialState,
+        questions: state.questions,
+        status: "ready",
+      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -108,7 +114,11 @@ function App() {
             </>
           )}
           {status === "finished" && (
-            <Finished points={points} pointsSum={pointsSum} />
+            <Finished
+              points={points}
+              pointsSum={pointsSum}
+              dispatch={dispatch}
+            />
           )}
         </main>
       </div>

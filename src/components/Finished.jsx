@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 Finished.propTypes = {
   points: PropTypes.number.isRequired,
   pointsSum: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-function Finished({ points, pointsSum }) {
+function Finished({ points, pointsSum, dispatch }) {
   const percentage = Math.ceil((points / pointsSum) * 100);
 
   return (
@@ -21,7 +22,10 @@ function Finished({ points, pointsSum }) {
         </p>
 
         {/* Button (optional for retry) */}
-        <button className="mt-4 px-5 py-2.5 bg-[#59c5db] text-[#20232a] font-medium rounded-md hover:bg-[#4fb3d3] transition-colors">
+        <button
+          onClick={() => dispatch({ type: "retryQuiz" })}
+          className="mt-4 px-5 py-2.5 bg-[#59c5db] text-[#20232a] font-medium rounded-md hover:bg-[#4fb3d3] transition-colors"
+        >
           Retake Quiz
         </button>
       </div>
