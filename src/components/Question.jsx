@@ -4,7 +4,7 @@ import Options from "./Options";
 Question.propTypes = {
   question: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
-  answer: PropTypes.object.isRequired,
+  answer: PropTypes.number,
 };
 
 function Question({ question, dispatch, answer }) {
