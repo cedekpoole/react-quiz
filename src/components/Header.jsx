@@ -1,6 +1,11 @@
 import Logo from "../assets/logos_react.svg";
+import PropTypes from "prop-types";
 
-function Header() {
+Header.propTypes = {
+  status: PropTypes.string.isRequired,
+};
+
+function Header({ status }) {
   return (
     <header className="flex justify-center items-center p-4 gap-8">
       <h1 className="text-4xl font-bold font-albertsans">REACT QUIZ</h1>
@@ -8,7 +13,7 @@ function Header() {
         src={Logo}
         alt="React Logo"
         width="100"
-        className="animate-spin-slow"
+        className={`${status !== "active" && "animate-spin-slow"}`}
       />
     </header>
   );
