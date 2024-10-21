@@ -6,6 +6,7 @@ import StartScreen from "./components/StartScreen";
 import Question from "./components/Question";
 import NextButton from "./components/NextButton";
 import Progress from "./components/Progress";
+import Finished from "./components/Finished";
 
 const initialState = {
   questions: [],
@@ -23,6 +24,8 @@ const reducer = (state, action) => {
       return { ...state, status: "error" };
     case "startQuiz":
       return { ...state, status: "active" };
+    case "finishQuiz":
+      return { ...state, status: "finished" };
     case "newAnswer": {
       const question = state.questions.at(state.index);
 
@@ -96,8 +99,16 @@ function App() {
                 dispatch={dispatch}
                 answer={answer}
               />
-              <NextButton dispatch={dispatch} answer={answer} />
+              <NextButton
+                dispatch={dispatch}
+                answer={answer}
+                index={index}
+                numQuestions={numQuestions}
+              />
             </>
+          )}
+          {status === "finished" && (
+            <Finished points={points} pointsSum={pointsSum} />
           )}
         </main>
       </div>
