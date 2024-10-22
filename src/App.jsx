@@ -10,6 +10,8 @@ import Finished from "./components/Finished";
 import Footer from "./components/Footer";
 import Timer from "./components/Timer";
 
+const SECS_PER_QUESTION = 10;
+
 const initialState = {
   questions: [],
   status: "loading", //'loading', 'error', 'ready', 'active', 'finished'
@@ -17,7 +19,7 @@ const initialState = {
   answer: null,
   points: 0,
   highscore: 0,
-  secondsRemaining: 10,
+  secondsRemaining: null,
 };
 
 const reducer = (state, action) => {
@@ -27,7 +29,11 @@ const reducer = (state, action) => {
     case "dataFailed":
       return { ...state, status: "error" };
     case "startQuiz":
-      return { ...state, status: "active" };
+      return {
+        ...state,
+        status: "active",
+        secondsRemaining: state.questions.length * SECS_PER_QUESTION,
+      };
     case "finishQuiz":
       return {
         ...state,

@@ -7,6 +7,9 @@ Timer.propTypes = {
 };
 
 function Timer({ secondsRemaining, dispatch }) {
+  const mins = Math.floor(secondsRemaining / 60);
+  const seconds = secondsRemaining % 60;
+
   useEffect(() => {
     const id = setInterval(() => {
       dispatch({ type: "tick" });
@@ -17,7 +20,7 @@ function Timer({ secondsRemaining, dispatch }) {
 
   return (
     <div className="mt-4 px-8 py-3 bg-[#323844] text-white rounded-lg">
-      {secondsRemaining} seconds remaining
+      {mins < 10 ? `0${mins}` : mins}:{seconds < 10 ? `0${seconds}` : seconds}
     </div>
   );
 }
