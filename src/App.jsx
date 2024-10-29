@@ -12,6 +12,9 @@ import Timer from "./components/Timer";
 
 const SECS_PER_QUESTION = 10;
 
+const BASE_URL = `${import.meta.env.VITE_JSONBIN_BASE_URL}`;
+const API_KEY = import.meta.env.VITE_JSONBIN_API_KEY;
+
 const initialState = {
   questions: [],
   status: "loading", //'loading', 'error', 'ready', 'active', 'finished'
@@ -92,9 +95,13 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch("http://localhost:4000/questions");
+        const res = await fetch(`${BASE_URL}`, {
+          headers: {
+            "X-Master-Key": API_KEY,
+          },
+        });
         const data = await res.json();
-        dispatch({ type: "dataReceived", payload: data });
+        dispatch({ type: "dataReceived", payload: data.record.questions });
       } catch (error) {
         console.error(error);
         dispatch({ type: "dataFailed" });
