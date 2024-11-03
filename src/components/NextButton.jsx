@@ -1,13 +1,7 @@
-import PropTypes from "prop-types";
+import { useQuiz } from "../contexts/QuizContext";
 
-NextButton.propTypes = {
-  answer: PropTypes.number,
-  dispatch: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired,
-  numQuestions: PropTypes.number.isRequired,
-};
-
-function NextButton({ answer, dispatch, index, numQuestions }) {
+function NextButton() {
+  const { answer, index, numQuestions, nextQuestion, finishQuiz } = useQuiz();
   const notAnswered = answer === null;
   if (index < numQuestions - 1)
     return (
@@ -15,7 +9,7 @@ function NextButton({ answer, dispatch, index, numQuestions }) {
         className={`mt-4 px-8 py-3 bg-[#323844] hover:bg-[#4E5460] text-white rounded-lg ${
           notAnswered && "cursor-not-allowed hover:bg-[#323844]"
         }`}
-        onClick={() => dispatch({ type: "nextQuestion" })}
+        onClick={() => nextQuestion()}
         disabled={notAnswered}
       >
         Next Question
@@ -25,7 +19,7 @@ function NextButton({ answer, dispatch, index, numQuestions }) {
     return (
       <button
         className="mt-4 px-8 py-3 bg-[#323844] hover:bg-[#4E5460] text-white rounded-lg"
-        onClick={() => dispatch({ type: "finishQuiz" })}
+        onClick={() => finishQuiz()}
       >
         Finish Quiz
       </button>

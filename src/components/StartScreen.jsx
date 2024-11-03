@@ -1,11 +1,7 @@
-import PropTypes from "prop-types";
+import { useQuiz } from "../contexts/QuizContext";
 
-StartScreen.propTypes = {
-  numQuestions: PropTypes.number.isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
-
-function StartScreen({ numQuestions, dispatch }) {
+function StartScreen() {
+  const { numQuestions, startQuiz } = useQuiz();
   return (
     <div className="flex flex-col justify-center items-center mt-10 p-10 gap-2 text-center">
       <h2 className="text-3xl font-bold mb-1 font-albertsans">
@@ -17,7 +13,7 @@ function StartScreen({ numQuestions, dispatch }) {
       </p>
       <button
         className="mt-4 px-8 py-3 bg-[#323844] hover:bg-[#4E5460] text-white rounded-lg"
-        onClick={() => dispatch({ type: "startQuiz" })}
+        onClick={() => startQuiz()}
       >
         Start Quiz
       </button>

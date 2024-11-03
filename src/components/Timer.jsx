@@ -1,22 +1,19 @@
 import { useEffect } from "react";
-import PropTypes from "prop-types";
+import { useQuiz } from "../contexts/QuizContext";
 
-Timer.propTypes = {
-  secondsRemaining: PropTypes.number.isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
+function Timer() {
+  const { secondsRemaining, countDown } = useQuiz();
 
-function Timer({ secondsRemaining, dispatch }) {
   const mins = Math.floor(secondsRemaining / 60);
   const seconds = secondsRemaining % 60;
 
   useEffect(() => {
     const id = setInterval(() => {
-      dispatch({ type: "tick" });
+      countDown();
     }, 1000);
 
     return () => clearInterval(id);
-  }, [dispatch]);
+  }, [countDown]);
 
   return (
     <div className="mt-4 px-8 py-3 bg-[#323844] text-white rounded-lg">

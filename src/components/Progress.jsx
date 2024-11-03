@@ -1,13 +1,7 @@
-import PropTypes from "prop-types";
+import { useQuiz } from "../contexts/QuizContext";
 
-Progress.propTypes = {
-  index: PropTypes.number.isRequired,
-  numQuestions: PropTypes.number.isRequired,
-  points: PropTypes.number.isRequired,
-  pointsSum: PropTypes.number.isRequired,
-};
-
-function Progress({ index, numQuestions, points, pointsSum }) {
+function Progress() {
+  const { numQuestions, points, pointsSum, index } = useQuiz();
   const progressPercentage = ((index + 1) / numQuestions) * 100;
 
   return (

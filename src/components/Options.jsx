@@ -1,12 +1,8 @@
-import PropTypes from "prop-types";
+import { useQuiz } from "../contexts/QuizContext";
 
-Options.propTypes = {
-  question: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  answer: PropTypes.number,
-};
-
-function Options({ question, dispatch, answer }) {
+function Options() {
+  const { questions, index, answer, newAnswer } = useQuiz();
+  const question = questions[index];
   const { options, correctOption } = question;
 
   const hasAnswered = answer !== null;
@@ -32,7 +28,7 @@ function Options({ question, dispatch, answer }) {
               }
               ${hasAnswered ? "cursor-not-allowed" : "cursor-pointer"}
               ${pickedAnswer && "translate-x-2"}`}
-            onClick={() => dispatch({ type: "newAnswer", payload: index })}
+            onClick={() => newAnswer(index)}
             disabled={hasAnswered} // Disable buttons once answered
           >
             {option}

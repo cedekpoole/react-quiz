@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 
-const QuizProvider.propTypes = {
-    children: PropTypes.node.isRequired,
+QuizProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 const QuizContext = createContext();
@@ -10,7 +10,6 @@ const SECS_PER_QUESTION = 10;
 
 const BASE_URL = `${import.meta.env.VITE_JSONBIN_BASE_URL}`;
 const API_KEY = import.meta.env.VITE_JSONBIN_API_KEY;
-
 
 const initialState = {
   questions: [],
@@ -76,7 +75,7 @@ const reducer = (state, action) => {
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
-function QuizProvider() {
+function QuizProvider({ children }) {
   const [
     { questions, status, index, answer, points, highscore, secondsRemaining },
     dispatch,
@@ -87,6 +86,29 @@ function QuizProvider() {
     (acc, question) => acc + question.points,
     0
   );
+  const startQuiz = () => {
+    dispatch({ type: "startQuiz" });
+  };
+
+  const newAnswer = (index) => {
+    dispatch({ type: "newAnswer", payload: index });
+  };
+
+  const countDown = () => {
+    dispatch({ type: "tick" });
+  };
+
+  const nextQuestion = () => {
+    dispatch({ type: "nextQuestion" });
+  };
+
+  const finishQuiz = () => {
+    dispatch({ type: "finishQuiz" });
+  };
+
+  const retryQuiz = () => {
+    dispatch({ type: "retryQuiz" });
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -106,7 +128,7 @@ function QuizProvider() {
     fetchData();
   }, []);
   return (
-    <CitiesContext.Provider
+    <QuizContext.Provider
       value={{
         questions,
         status,
@@ -115,20 +137,27 @@ function QuizProvider() {
         points,
         highscore,
         secondsRemaining,
-        dispatch,
+        numQuestions,
+        pointsSum,
+        startQuiz,
+        newAnswer,
+        countDown,
+        nextQuestion,
+        finishQuiz,
+        retryQuiz,
       }}
     >
       {children}
-    </CitiesContext.Provider>
+    </QuizContext.Provider>
   );
 }
 
 function useQuiz() {
-    const context = useContext(QuizContext);
-    if (context === undefined) {
-        throw new Error("useQuiz must be used within a QuizProvider");
-    }
-    return context;
+  const context = useContext(QuizContext);
+  if (context === undefined) {
+    throw new Error("useQuiz must be used within a QuizProvider");
+  }
+  return context;
 }
 
 export { QuizProvider, useQuiz };

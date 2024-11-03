@@ -1,13 +1,7 @@
-import PropTypes from "prop-types";
+import { useQuiz } from "../contexts/QuizContext";
 
-Finished.propTypes = {
-  points: PropTypes.number.isRequired,
-  pointsSum: PropTypes.number.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  highscore: PropTypes.number.isRequired,
-};
-
-function Finished({ points, pointsSum, dispatch, highscore }) {
+function Finished() {
+  const { points, pointsSum, highscore, retryQuiz } = useQuiz();
   const percentage = Math.ceil((points / pointsSum) * 100);
 
   return (
@@ -27,7 +21,7 @@ function Finished({ points, pointsSum, dispatch, highscore }) {
 
         {/* Button (optional for retry) */}
         <button
-          onClick={() => dispatch({ type: "retryQuiz" })}
+          onClick={() => retryQuiz()}
           className="mt-4 px-5 py-2.5 bg-[#59c5db] text-[#20232a] font-medium rounded-md hover:bg-[#4fb3d3] transition-colors"
         >
           Retake Quiz
